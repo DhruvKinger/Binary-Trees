@@ -1,0 +1,42 @@
+
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    //node* create=(struct node*)malloc(sizeof(struct node)); 
+    node* create=new node; 
+    //both methods can be used to initalize memory
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+int checkmirror(node* a,node* b)
+{
+    if(a==NULL && b==NULL)
+    return true;
+    if(a==NULL || b==NULL)
+    return false;
+    return(a->data==b->data && checkmirror(a->left,b->right) && checkmirror(a->right,b->left));
+}
+int main()
+{
+    node* a=new_node(1); 
+    node* b=new_node(1); 
+    a->left = new_node(2); 
+    a->right = new_node(3); 
+    a->left->left  = new_node(4); 
+    a->left->right = new_node(5); 
+    
+    b->left = new_node(3); 
+    b->right = new_node(2); 
+    b->right->left = new_node(5); 
+    b->right->right = new_node(4); 
+    checkmirror(a,b)?cout<<"Yes" : cout<<"No";
+    return 0;
+}
