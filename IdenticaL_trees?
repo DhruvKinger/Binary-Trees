@@ -1,0 +1,43 @@
+
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    //node* create=(struct node*)malloc(sizeof(struct node)); 
+    node* create=new node; 
+    //both methods can be used to initalize memory
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+int check_identical(node* a,node* b)
+{
+    if(a==NULL && b==NULL)
+    return true;
+    else if(a!=NULL && b!=NULL)
+    return(a->data==b->data && check_identical(a->left,b->left) && check_identical(a->right,b->right));
+    else
+    return 0;
+}
+int main()
+{
+    node* a=new_node(1); 
+    node* b=new_node(1); 
+    a->left = new_node(2); 
+    a->right = new_node(3); 
+    a->left->left  = new_node(4); 
+    a->left->right = new_node(5); 
+    
+    b->left = new_node(2); 
+    b->right = new_node(3); 
+    b->left->left = new_node(4); 
+    b->left->right = new_node(5); 
+    check_identical(a,b)?cout<<"Yes they are identical" : cout<<"No not identical";
+    return 0;
+}
