@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+int getlevel(node* root,node* node,int level)
+{
+    if(root==NULL)
+   {
+    return 0;
+   }   
+    else if(root==node)
+    {
+        return level;
+    }
+int x=getlevel(root->left,node,level+1);  // If node is present in left subtree 
+
+   if(x!=0)
+ {
+    return x;
+ }
+ return getlevel(root->right,node,level+1); // If node is not present in left subtree 
+    
+}
+void printcousins(node* root,node* node,int level)
+{
+    if(level<2||root==NULL)
+    return;
+    if(level==2)
+    {
+        if(root->left==node || root->right==node)
+        return;
+        if(root->left!=node)
+        cout<<root->left->data<<" ";
+        
+        if(root->right!=node)
+        cout<<root->right->data<<" ";
+        
+        
+    }
+    else if(level>2)
+    {
+        printcousins(root->left,node,level-1);
+        printcousins(root->right,node,level-1);
+    }
+}
+int cousins(node* root,node* node)
+{
+    int level=getlevel(root,node,1);
+    printcousins(root,node,level);
+}
+int main()
+{
+    node* a=new_node(1); 
+    a->left = new_node(2); 
+    a->right = new_node(3); 
+    a->left->left  = new_node(4); 
+    a->left->right = new_node(5);
+    a->right->right = new_node(6);
+    a->right->left = new_node(7);
+   cout<<"Cousins of node 4 are :"; cousins(a,a->left->left);
+   return 0; 
+}
