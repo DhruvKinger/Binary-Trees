@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+int getlevel(node* root,node* node,int level)
+{
+    if(root==NULL)
+   {
+    return 0;
+   }   
+    else if(root==node)
+    {
+        return level;
+    }
+int x=getlevel(root->left,node,level+1);  // If node is present in left subtree 
+
+   if(x!=0)
+ {
+    return x;
+ }
+ return getlevel(root->right,node,level+1); // If node is not present in left subtree 
+    
+}
+int find_level(node* root,node* node)
+{
+    int level=getlevel(root,node,1);
+}
+int main()
+{
+    node* a=new_node(1); 
+    a->left = new_node(2); 
+    a->right = new_node(3); 
+    a->left->left  = new_node(4); 
+    a->left->right = new_node(5);
+    a->left->right->left = new_node(6);
+    a->left->right->right = new_node(7);
+   
+   cout<<"Level of node 7 is "<<find_level(a,a->left->right->right);
+   return 0; 
+}
