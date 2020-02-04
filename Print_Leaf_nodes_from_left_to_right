@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+void print(node* root)
+{
+    if(!root)
+    return;
+    print(root->left);
+    cout<<root->data<<" ";
+    print(root->right);
+}
+void print_leaf_l_to_r(node* root)
+{
+  
+    if(!root)
+    return;
+    if(root->left==NULL && root->right==NULL)
+{
+    cout<<root->data<<" ";
+    return;
+}
+if(root->left)
+{
+    print_leaf_l_to_r(root->left);
+}
+if(root->right)
+{
+    print_leaf_l_to_r(root->right);
+}
+}
+
+int main()
+{     node* a=new_node(1); 
+     a->left = new_node(2); 
+     a->right = new_node(3); 
+     a->left->left  = new_node(4); 
+     a->left->right = new_node(5);
+     a->right->right = new_node(7);
+     a->right->left = new_node(6);
+     cout<<"Inorder Traversal of tree: ";
+     print(a);
+     cout<<"\n Leaf Nodes in tree :";
+     print_leaf_l_to_r(a);  
+    return 0; 
+}
