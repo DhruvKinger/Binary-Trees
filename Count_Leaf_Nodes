@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+int leaf(node* root)
+{
+   // cout<<root->data<<" ";
+    if(!root)
+    return 0;
+    if(root->left==NULL && root->right==NULL)
+{
+    return 1;
+}
+ return leaf(root->left)+leaf(root->right);    
+
+}
+
+int main()
+{     node* a=new_node(1); 
+     a->left = new_node(2); 
+     a->right = new_node(3); 
+     a->left->left  = new_node(4); 
+     a->left->right = new_node(5);
+     a->right->right = new_node(7);
+     a->right->left = new_node(6);
+     cout<<"Leaf Nodes in tree :";
+    cout<<leaf(a);  
+    return 0; 
+}
