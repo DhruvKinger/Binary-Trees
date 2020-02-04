@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+void odd_nodes(node* root,bool isOdd=true)
+{
+    if(!root)
+    return;
+    //cout<<"\n nodes is: "<<root->data<<" and value:"<<isOdd<<endl;   just for testing
+    if(isOdd)
+    {
+        cout<<root->data<<" ";
+        
+    }
+    odd_nodes(root->left,!isOdd);
+    odd_nodes(root->right,!isOdd);
+}
+int main()
+{     node* a=new_node(1); 
+     a->left = new_node(2); 
+    a->right = new_node(3); 
+    a->left->left  = new_node(4); 
+    a->left->right = new_node(5);
+    a->right->right = new_node(7);
+    a->right->left = new_node(6);
+       cout<<"Odd nodes in a tree :";
+   odd_nodes(a);//isOdd=true);
+   return 0; 
+}
