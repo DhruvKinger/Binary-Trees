@@ -1,0 +1,51 @@
+#include <iostream>
+#include<queue>
+using namespace std;
+struct node
+{
+    int data;
+    struct node *left,*right;
+};
+
+struct node* push_data(int data)
+{
+    node* x=new node;
+    x->data=data;
+    x->left=x->right=NULL;
+    return x;
+    
+}
+void print_levelorder(node* root)
+{
+    if(root==NULL)
+    return;
+    queue<node *> q ;//empty queue
+    q.push(root);// push root node
+    while(q.empty()==false)
+    {
+        node* node=q.front();
+        cout<<node->data<<" ";//print front of queue and pop it
+        q.pop();
+        
+        if(node->left!=NULL)   //enque left child
+        {
+            q.push(node->left);
+        }
+        if(node->right!=NULL)  //enque right child
+        {
+            q.push(node->right);
+        }
+        
+    }
+}
+int main()
+{
+    node* a=push_data(10);
+    a->left=push_data(20);
+    a->right=push_data(30);
+    a->left->right=push_data(50);
+    a->left->left=push_data(40);
+    cout<<"Level Order traversal of binary tree is \n"; 
+    print_levelorder(a);
+    return 0;
+}
