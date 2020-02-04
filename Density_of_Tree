@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+int cal_height_size(node* root,int &size)
+{
+    if(!root)
+    return 0;
+    
+    int l=cal_height_size(root->left,size);
+    int r=cal_height_size(root->right,size);
+    size++;
+    //cout<<root->data<<" "<<size;
+    return(l>r)? (l+1):(r+1);
+}
+void density(node* root)
+{
+    if(!root)
+    return;
+   int size=0;
+   int height=cal_height_size(root,size);
+
+    cout<<(float)size/height;
+}
+int main()
+{     node* a=new_node(1); 
+     a->left = new_node(2); 
+    a->right = new_node(3); 
+    a->left->left  = new_node(4); 
+    a->left->right = new_node(5);
+   // a->right->right = new_node(7);
+    //a->right->left = new_node(6);
+    cout<<"Density of tree :";
+   density(a);  
+   return 0; 
+}
