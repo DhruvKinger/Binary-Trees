@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+#include<iostream>
+using namespace std;
+
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+void boundary_traversal(node* root)
+{
+    if(!root)
+    {
+    return;
+    }
+    if(!(root->left) && !(root->right))
+    {
+        cout << root->data << endl;  // If there is only 1 node print it and return
+     return;
+    }
+    
+    
+    vector<node*> list ;
+    list.push_back(root);
+    
+    node* l=root->left;
+    while(l->left)
+    {
+        list.push_back(l);   // Traverse left boundary without root and last node 
+        l=l->left;
+    }
+    
+    std::queue<node*> q ;
+    q.push(root);
+    while(!q.empty())
+    {
+        node* temp=q.front();
+        q.pop();
+        if((!temp->left) &&(!temp->right))
+        {
+            list.push_back(temp);  // BFS designed to only include leaf nodes 
+        }
+        if(temp->left)
+        {
+            q.push(temp->left);
+        }
+        if(temp->right)
+        {
+            q.push(temp->right);
+        }
+        
+    }
+    
+    vector<node*> r_list ;
+    node* r=root->right;
+    while(r->right)
+    {
+        r_list.push_back(r); // Traverse right boundary without root and last node 
+        r=r->right;
+    }
+    
+    reverse(r_list.begin(),r_list.end());  // Reversing the order 
+    
+    list.insert(list.end(),r_list.begin(),r_list.end());  // Concatenating the two lists 
+    
+    for(auto i:list)
+    {
+        cout<<i->data<<" ";
+    }
+    
+    
+    
+}
+int main()
+{
+    
+    node* a=new_node(1); 
+     a->left = new_node(2); 
+     a->right = new_node(3); 
+     a->left->left  = new_node(4); 
+     a->left->right = new_node(5);
+     a->right->right = new_node(7);
+     a->right->left = new_node(6);
+     cout<<"boundary traversal using iterative approach : ";
+     boundary_traversal(a);
+    return 0;
+}
