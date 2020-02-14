@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+struct node{
+    int data;
+    node* left, *right;
+};
+node* newNode(int data)
+{
+   node *new_n=new node();
+   new_n->data=data;
+   new_n->left=new_n->right=NULL;
+   return new_n;
+}
+
+void leftview(node* root,int level,int *max)
+{
+    if(root==NULL)
+    return;
+    
+    if(*max<level)
+    {
+        std::cout << root->data << std::endl;
+        *max=level;
+    }
+    leftview(root->left,level+1,max);
+    leftview(root->right,level+1,max);
+
+}
+   int main() 
+{ 
+    node* root = newNode(1); 
+    root->left = newNode(10); 
+    root->right = newNode(30); 
+    root->right->left = newNode(25); 
+    root->right->right = newNode(40); 
+    int max_level = 0; 
+    cout<<"left view of binary tree is:\n";
+    leftview(root,1,&max_level);
+    return 0;
+}
