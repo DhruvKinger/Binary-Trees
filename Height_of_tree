@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node* left,*right;
+};
+
+struct node* new_node(int data)
+{
+    node* x=new node;
+    x->data=data;
+    x->left=x->right=NULL;
+    return x;
+}
+int height_of_tree(node* root)
+{
+    if(root==NULL)
+    return 0;
+    else{
+        
+    int l=height_of_tree(root->left);
+    int r=height_of_tree(root->right);
+    
+    if(l>r)
+    return (l+1);
+    else return (r+1);
+
+    }
+}
+int main()
+{
+    node* root=new_node(1);
+    root->left=new_node(2);
+    root->right=new_node(3);
+    root->left->right=new_node(4);
+    root->left->left=new_node(5);
+    cout<<"Height is: "<<height_of_tree(root);
+    return 0;
+}
