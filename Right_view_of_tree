@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct node{
+  int data;
+  struct node* left,*right;
+  
+};
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+void print(node* root)
+{
+    if(root==NULL)
+    return;
+    print(root->left);
+    cout<<root->data<<" ";
+    print(root->right);
+
+}
+
+void rightview(node * root)
+{
+    if(!root)
+    return;
+    
+    std::queue<node*> q ;
+    q.push(root);
+    while(!q.empty())
+    {
+        
+    
+    int n=q.size();
+    for(int i=1;i<=n;i++)
+    {
+        
+        node* x=q.front();
+        q.pop();
+        if(i==n)
+        {
+            cout<<x->data<<" ";
+        }
+        if(x->left)
+        {
+            q.push(x->left);
+        }
+        
+        
+        if(x->right)
+        {
+            q.push(x->right);
+        }
+            }
+        
+    }
+}
+
+int main()
+{    node* a=new_node(1); 
+     a->left = new_node(2); 
+    a->right = new_node(3); 
+    a->left->left  = new_node(4); 
+    a->left->right = new_node(5);
+    a->right->left= new_node(18); 
+	a->right->left->right = new_node(7); 
+	cout<<"Tree is:\n";
+	print(a);
+	cout<<"\nRight view of tree is:\n";
+rightview(a);
+   return 0; 
+}
