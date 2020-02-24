@@ -1,0 +1,116 @@
+// C++ implementation of above approach 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// Structure of a BST Node 
+class node { 
+public: 
+	int data; 
+	node* left; 
+	node* right; 
+	
+}; 
+
+struct node *new_node(int data)
+{
+    node* create=new node; 
+    create->data=data;
+    create->left=create->right=NULL;
+    return(create);
+}
+
+void print(node* root) 
+{ 
+	if (root != NULL) { 
+		print(root->left); 
+		cout << root->data << " "; 
+		print(root->right); 
+	} 
+} 
+
+void merge_bst(node* root1, node* root2) 
+{ 
+
+	if (!root1 && !root2) 
+		return; 
+
+	if (!root1) { 
+		print(root2); 
+		return; 
+	} 
+
+	if (!root2) { 
+		print(root1); 
+		return; 
+	} 
+
+	node* temp1 = root1; 
+	node* parent1 = NULL; 
+
+	while (temp1->left) { 
+		parent1 = temp1; 
+		temp1 = temp1->left; 
+	} 
+
+	node* temp2 = root2; 
+	node* parent2 = NULL; 
+	
+	while (temp2->left) { 
+		parent2 = temp2; 
+		temp2 = temp2->left; 
+	} 
+
+	if (temp1->data <= temp2->data) { 
+
+		cout << temp1->data << " "; 
+
+		if (parent1 == NULL) { 
+
+			merge_bst(root1->right, root2); 
+		} 
+
+		else { 
+
+			parent1->left = temp1->right; 
+
+			merge_bst(root1, root2); 
+		} 
+	} 
+	else { 
+
+		cout << temp2->data << " "; 
+
+		if (parent2 == NULL) { 
+
+             merge_bst(root1, root2->right); 
+		} 
+
+            else { 
+			parent2->left = temp2->right; 
+
+			merge_bst(root1, root2); 
+		} 
+	} 
+} 
+
+int main() 
+{ 
+	node *root1 = NULL;
+    node *root2 = NULL; 
+    
+    root1 = new_node(3); 
+    root1->left = new_node(1); //first bst
+    root1->right = new_node(5); 
+   cout<<"First BST: ";
+   print(root1);
+    root2 = new_node(4); 
+    root2->left = new_node(2); //2nd bst
+    root2->right = new_node(6); 
+    cout<<"\nSecond BST: ";
+   print(root2);
+   cout<<"\nFinal Sorted BST: ";
+   
+	merge_bst(root1, root2); 
+
+	return 0; 
+} 
