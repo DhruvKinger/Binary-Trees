@@ -1,0 +1,71 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+struct node { 
+    int data; 
+    struct node *left, *right,*nextright; 
+}; 
+
+
+ struct node* newNode(int data) 
+{ 
+    struct node* node = new struct node; 
+    node->data = data; 
+    node->left = NULL; 
+    node->right = NULL; 
+    node->nextright=NULL;
+     return (node); 
+} 
+  
+  
+  void connect(node* root)
+{
+    if(!root)
+    return;
+    std::queue<node*> q ;
+    q.push(root);
+    q.push(NULL);
+ 
+ while(!q.empty())
+ {
+    node* x=q.front();
+    q.pop();
+    
+    if(x!=NULL)
+    {
+        x->nextright=q.front(); // next element in queue represents next node at current Level  
+            
+        if(x->left)
+        q.push(x->left);
+        // push left and right children of current node 
+           
+        if(x->right)
+        q.push(x->right);
+    } 
+    
+    else if(!q.empty())
+    {
+        q.push(NULL);
+    }
+ }
+ 
+}
+
+
+int main() 
+{ 
+    struct node* root = newNode(1); 
+    root->left = newNode(2); 
+    root->right = newNode(3); 
+    root->left->left = newNode(7); 
+    root->left->right = newNode(6); 
+    root->right->left = newNode(5); 
+    root->right->right = newNode(4); 
+    cout << " connecting Nodes at same level: \n"; 
+    connect(root); 
+    
+    printf("nextRight of %d is %d \n", root->left->data, 
+     root->left->nextright ? root->left->nextright->data : -1);
+         printf("\nnextRight of %d is %d \n", root->left->left->data, 
+     root->left->left->nextright ? root->left->left->nextright->data : -1);
+        return 0; 
+} 
