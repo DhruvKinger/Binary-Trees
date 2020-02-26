@@ -39,7 +39,7 @@ void printSpiral(node* root)
           s1.push(y->left);
         
           if(y->right)
-          s1.push(y->right); //right pushed first because when we will pop stack 2 left will be popped first
+          s1.push(y->right); //left pushed first because when we will pop stack 1st right will be popped first
           
             
         }
