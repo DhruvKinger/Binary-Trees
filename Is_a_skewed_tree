@@ -1,0 +1,49 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+struct node { 
+	node* left; 
+	node* right; 
+	int data; 
+}; 
+
+node* newNode(int key) 
+{ 
+	node* nodex = new node(); 
+	nodex->left = nodex->right = NULL; 
+	nodex->data = key; 
+	return nodex; 
+} 
+
+bool isskewed(node* root)
+{
+     if(!root || (root->left==NULL && (root->right==NULL)))
+     {
+         return true; 
+     }
+     
+     if(root->left && root->right)
+     return false;
+     
+     if(root->left)
+     return isskewed(root->left);
+     
+     else
+     return isskewed(root->right);
+         
+     
+}
+
+
+
+int main() 
+{ 
+ struct node *root = newNode(1); 
+    root->right = newNode(4); 
+	root->right->left = newNode(3); 
+	root->right->left->right = newNode(2); 
+    
+    (isskewed(root)) ? printf("The Binary Tree is a skewed tree\n") : printf("The Binary Tree is not a skewed tree\n"); 
+    
+    
+    	return 0; 
+} 
