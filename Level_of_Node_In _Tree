@@ -28,7 +28,9 @@ int x=getlevel(root->left,node,level+1);  // If node is present in left subtree
  {
     return x;
  }
- return getlevel(root->right,node,level+1); // If node is not present in left subtree 
+ x=getlevel(root->right,node,level+1); // If node is not present in left subtree 
+ return x;
+ 
     
 }
 int find_level(node* root,node* node)
