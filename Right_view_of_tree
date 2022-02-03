@@ -42,6 +42,7 @@ void rightview(node * root)
         q.pop();
         if(i==n)
         {
+	    // basically finding last element of a level
             cout<<x->data<<" ";
         }
         if(x->left)
@@ -54,8 +55,10 @@ void rightview(node * root)
         {
             q.push(x->right);
         }
-            }
+           
+      }
         
+    
     }
 }
 
