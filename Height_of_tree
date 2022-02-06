@@ -13,20 +13,16 @@ struct node* new_node(int data)
     x->left=x->right=NULL;
     return x;
 }
-int height_of_tree(node* root)
+int Height_Of_Tree(node* root)
 {
-    if(root==NULL)
+    if(!root)
     return 0;
-    else{
-        
-    int l=height_of_tree(root->left);
-    int r=height_of_tree(root->right);
     
-    if(l>r)
-    return (l+1);
-    else return (r+1);
-
-    }
+    int l=Height_Of_Tree(root->left);
+    int r=Height_Of_Tree(root->right);
+        
+    return (max(l,r)+1);
+    
 }
 int main()
 {
@@ -35,6 +31,6 @@ int main()
     root->right=new_node(3);
     root->left->right=new_node(4);
     root->left->left=new_node(5);
-    cout<<"Height is: "<<height_of_tree(root);
+    cout<<"Height is: "<<Height_Of_Tree(root);
     return 0;
 }
