@@ -16,6 +16,7 @@ node* newNode(int key)
 
 bool isFullTree(node* root)
 {
+     // condition is all nodes have 0 or two children.
      if(!root)
      {
          return true; // If empty tree 
